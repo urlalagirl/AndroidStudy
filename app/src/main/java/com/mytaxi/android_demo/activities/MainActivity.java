@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -44,21 +43,11 @@ import static com.mytaxi.android_demo.misc.Constants.DEFAULT_LOCATION;
 import static com.mytaxi.android_demo.misc.Constants.DEFAULT_ZOOM;
 import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
 import static com.mytaxi.android_demo.utils.PermissionHelper.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
-//↓↓added by Yunhee↓↓
-import static com.mytaxi.android_demo.activities.AuthenticationActivity.countingIdlingResource;
-////↑↑added by Yunhee↑↑
 
 public class MainActivity extends AuthenticatedActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private static final String KEY_LOCATION = "location";
-
-    //↓↓added by Yunhee↓↓
-    //For checking IdlingResource
-    public CountingIdlingResource getIdlingResourceInTest() {
-        return countingIdlingResource;
-    }
-    ////↑↑added by Yunhee↑↑
 
     @Inject
     HttpClient mHttpClient;
