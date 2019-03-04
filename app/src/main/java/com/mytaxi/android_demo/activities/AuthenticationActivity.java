@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.test.espresso.idling.CountingIdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,9 +29,6 @@ import javax.inject.Inject;
 import static com.mytaxi.android_demo.misc.Constants.LOG_TAG;
 
 public class AuthenticationActivity extends AppCompatActivity {
-    //Create idlingResource instance
-    public static CountingIdlingResource countingIdlingResource = new CountingIdlingResource("idlingCheck");
-
     @Inject
     HttpClient mHttpClient;
 
@@ -68,12 +64,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void attemptLogin() {
-
-        //↓↓added by Yunhee↓↓
-        //Increase count
-        countingIdlingResource.increment();
-        ////↑↑added by Yunhee↑↑
-
         final String username = mEditTextUsername.getText().toString();
         final String password = mEditTextPassword.getText().toString();
         mHttpClient.fetchUser(RANDOM_USER_SEED, new HttpClient.UserCallback() {
@@ -107,9 +97,6 @@ public class AuthenticationActivity extends AppCompatActivity {
                     Snackbar.make(view, R.string.message_login_fail, Snackbar.LENGTH_LONG).show();
                     Log.i(LOG_TAG, "Failed login with user: " + username);
                 }
-
-                //Decrease count
-                countingIdlingResource.decrement();
                 ////↑↑added by Yunhee↑↑
             }
         });
