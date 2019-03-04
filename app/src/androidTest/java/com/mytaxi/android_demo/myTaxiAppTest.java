@@ -4,7 +4,7 @@ import com.mytaxi.android_demo.activities.MainActivity;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.idling.CountingIdlingResource;
+import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -48,8 +48,6 @@ public class myTaxiAppTest {
     private static final String PASSWORD = "venture";
     private static final String SEARCH_KEYWORD = "sa";
     private static final String DIVER = "Sarah Scott";
-    //Idling Resource
-    private CountingIdlingResource idlingResource;
 
     @Rule
     public ActivityTestRule<MainActivity> activityActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
@@ -58,8 +56,7 @@ public class myTaxiAppTest {
     @Before
     public void setUp() throws Exception {
         activity = activityActivityTestRule.getActivity();
-        idlingResource = activity.getIdlingResourceInTest();
-        Espresso.registerIdlingResources(idlingResource);
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getIdlingResource());
 
         //--Tap allow button on location access dialog, if displayed--
         // Initialize UiDevice instance
@@ -141,7 +138,7 @@ public class myTaxiAppTest {
 
     @After
     public void tearDown() {
-        Espresso.unregisterIdlingResources(idlingResource);
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource());
         activity.finish();
     }
 
