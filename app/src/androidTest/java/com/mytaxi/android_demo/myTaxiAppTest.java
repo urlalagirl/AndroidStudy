@@ -56,7 +56,6 @@ public class myTaxiAppTest {
     @Before
     public void setUp() throws Exception {
         activity = activityActivityTestRule.getActivity();
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.getIdlingResource());
 
         //--Tap allow button on location access dialog, if displayed--
         // Initialize UiDevice instance
@@ -138,7 +137,6 @@ public class myTaxiAppTest {
 
     @After
     public void tearDown() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource());
         activity.finish();
     }
 
